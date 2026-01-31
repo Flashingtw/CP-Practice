@@ -1,0 +1,1 @@
+#include <bits/stdc++.h>using namespace std;const int mod = 998244353;int main(){	int n,k;	cin>>n>>k;	vector<int> step(k);	vector<int> dp(n+1,0);	for(int i=0;i<k;i++) {		cin>>step[i];	}	dp[0]=1;	for(int i=1;i<=n;i++){		for(int v:step){			if(i-v<0) continue;			dp[i]=(dp[i]+dp[i-v])%mod;		}	}	cout << dp[n];}
