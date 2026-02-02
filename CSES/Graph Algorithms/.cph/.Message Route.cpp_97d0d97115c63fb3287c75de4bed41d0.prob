@@ -1,1 +1,0 @@
-{"name":"Local: Message Route","url":"c:\\Users\\Joshua\\Desktop\\C++\\CSES\\Graph Algorithms\\Message Route.cpp","tests":[{"id":1770027551299,"input":"5 5\n1 2\n1 3\n1 4\n2 3\n5 4","output":"3\n1 4 5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Joshua\\Desktop\\C++\\CSES\\Graph Algorithms\\Message Route.cpp","group":"local","local":true}

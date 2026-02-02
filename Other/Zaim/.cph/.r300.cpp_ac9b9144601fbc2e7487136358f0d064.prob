@@ -1,1 +1,0 @@
-{"name":"Local: r300","url":"c:\\Users\\Joshua\\Desktop\\C++\\Other\\Zaim\\r300.cpp","tests":[{"id":1770028592841,"input":"3 3 2\n0 10 20\n1 9 19","output":"9"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Joshua\\Desktop\\C++\\Other\\Zaim\\r300.cpp","group":"local","local":true}
