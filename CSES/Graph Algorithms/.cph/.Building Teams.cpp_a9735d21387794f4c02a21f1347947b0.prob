@@ -1,0 +1,1 @@
+{"name":"Local: Building Teams","url":"c:\\Users\\Joshua\\Desktop\\C++\\CSES\\Graph Algorithms\\Building Teams.cpp","tests":[{"id":1770040504268,"input":"5 3\n1 2\n1 3\n4 5","output":"1 2 2 1 2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Joshua\\Desktop\\C++\\CSES\\Graph Algorithms\\Building Teams.cpp","group":"local","local":true}
