@@ -4,7 +4,7 @@ const int N = 200005;
 typedef long long ll;
 
 vector<int> adj[N];
-int in[N],out[N],
+int in[N],out[N];
 int timer=0;
 ll bit[N];
 int n,m;
