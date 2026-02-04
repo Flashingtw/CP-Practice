@@ -1,1 +1,0 @@
-#include <bits/stdc++.h>using namespace std;int main(){	string s;	cin>>s;	char c=s[0];	int ans=1,cnt=1;	if (s.empty()) {        cout << 0 << endl;        return 0;    }	for(int i=1;i<s.length();i++){		if(s[i]==c){			cnt++;		}		else{			ans=max(ans,cnt);			cnt=1;			c=s[i];		}	}	ans = max(ans, cnt);	cout << ans;}

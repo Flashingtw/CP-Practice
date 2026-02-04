@@ -1,1 +1,0 @@
-#include <bits/stdc++.h>using namespace std;const int mod = 99824435;int main(){	int n;	cin>>n;	int l_1=1,l_2=2,ans;	for(int i=3;i<=n;i++) {		ans=(l_1+l_2)%mod;		l_1=l_2;		l_2=ans;	}	cout << ans;}

@@ -1,1 +1,0 @@
-#include <bits/stdc++.h>using namespace std;typedef long long ll;vector<ll> v;ll ans=1e18;int n;void rec(int i,ll l,ll r){	if (i==n) {		ans = min(ans,abs(r-l));		return;	}	rec(i+1,l+v[i],r);	rec(i+1,l,r+v[i]);}int main(){	cin>>n;	v.resize(n);	for(int i=0;i<n;i++) cin>>v[i];	rec(0,0,0);	cout << ans;}

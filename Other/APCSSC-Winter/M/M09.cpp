@@ -1,1 +1,0 @@
-#include <bits/stdc++.h>using namespace std;const int mod = 998244353;int main(){	int n,m;	cin>>n>>m;	vector<int> coin(n);	for(int i=0;i<n;i++) cin>>coin[i];	vector<int> dp(m+1);	dp[0]=1;	for(int c:coin){		for (int j=m;j>=c;j--) {			dp[j] = (dp[j] + dp[j-c])%mod;		}	}	cout << dp[m];}
