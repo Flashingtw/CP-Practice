@@ -1,0 +1,1 @@
+#include <bits/stdc++.h>using namespace std;int zero;struct event{	int e,c;};int main(){	int n;	while (cin >> n && n != 0){	vector<event> v(n);	for(int i=0;i<n;i++){		cin>>v[i].c>>v[i].e;	}	sort(v.begin(),v.end(),[&](event &a,event &b){return a.e>b.e;});	int t=0,ans=0;	for(event &e :v){		t+=e.c;		ans = max(ans,t+e.e);	}	cout << ans << "\n";	}}
