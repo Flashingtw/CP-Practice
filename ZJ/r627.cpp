@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<job> v;
 struct job {
     int s,d,t;
     bool operator<(const job &other) const {
@@ -9,6 +8,7 @@ struct job {
         return t < other.t;
     }
 };
+vector<job> v;
 
 bool chk(int lmt){
     int cur=0,t=0;
