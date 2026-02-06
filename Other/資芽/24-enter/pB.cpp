@@ -31,8 +31,6 @@ int main(){
         if (L != -1) res.push_back(L);
         if (R != -1) res.push_back(R);   
         if (L != -1 && R != -1) res.push_back((L+R)/2);
-        sort(res.begin(),res.end());
-        res.erase(unique(res.begin(),res.end()),res.end());
         for (int x:res) {
             ll new_score = 0;
             if (L!=-1) new_score += cal(L,x);
