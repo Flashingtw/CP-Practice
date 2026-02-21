@@ -9,7 +9,6 @@ int main(){
     for(int i=0;i<n;i++){
         cin>>v[i];
     }
-    vector<int> dp(2e5+5);
     for(int i=0;i<n;i++){
         int num=v[i];
         mp[v[i]] = mp[v[i]-1]+1;
