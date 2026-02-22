@@ -1,20 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
-int main() {
-    int n,k;
-    cin>>n>>k;
-    queue<int> q;
-    for (int i=1;i<=n;i++) {
-        q.push(i);
+const int N = 270005;
+int n,K;
+int tree[N];
+
+void update(int idx,int val){
+    for(;idx<=n;idx+= idx&-idx){
+        tree[idx]+=val;
     }
-    while (!q.empty()) {
-        int step = k%q.size();
-        for (int i=0;i<step;i++) {
-            int first = q.front();
-            q.pop();
-            q.push(first);
+}
+int query(int k){
+    int pos=0;
+    for(int step=(2<<17);step>0;step>>=1){
+        int next_pos = pos+step;
+        if(next_pos<=n&&tree[next_pos]<k){
+            pos = next_pos;
+            k = k-tree[next_pos];
         }
-        cout << q.front() << " ";
-        q.pop();
+    }
+    return pos+1;
+}
+
+int main() {
+    cin>>n>>K;
+    for(int i=1;i<=n;i++){
+        update(i,1);
+    }
+    int rem=n,p=0;
+    for(int i=1;i<=n;i++){
+        p = (p+K)%rem;
+        int ans = query(p+1);
+        cout << ans << " ";
+        update(ans,-1);
+        rem--;
     }
 }
