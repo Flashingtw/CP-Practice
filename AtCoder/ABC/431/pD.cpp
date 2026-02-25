@@ -11,7 +11,7 @@ int main(){
     cin>>n;
     vector<part> v(n);
     ll t_w=0,base=0;
-    fill(dp,dp+250005,-INF);
+    fill(dp,dp+125005,-INF);
     for(int i=0;i<n;i++){
         cin>>v[i].w>>v[i].h>>v[i].b;
         t_w+=v[i].w;
@@ -19,8 +19,13 @@ int main(){
     }
     dp[0] = 0;
     for(int i=0;i<n;i++){
-        for(int j=125000;j>=v[i].w;j--){
+        for(int j=(t_w>>1);j>=v[i].w;j--){
             dp[j] = max(dp[j],dp[j-v[i].w]+(v[i].h-v[i].b));
         }
     }
+    ll ans=-INF;
+    for(int i=0;i<=(t_w>>1);i++){
+        ans = max(ans,base+dp[i]);
+    }
+    cout << ans;
 }
