@@ -31,6 +31,7 @@ int main(){
         }
     }
     hanoi(m,1);
+    cout << ans.size() << '\n';
     for(auto [f,t]:ans){
         char from,to;
         if(f==0) from='A';
