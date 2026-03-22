@@ -11,6 +11,7 @@ ll solve(int k,ll cur,int tar){
     if(cur==0) return 0;
     if(k==1) return prefix[1][cur][tar];
     if(k==2) return prefix[2][cur][tar];
+    
     if(cur<=len[k-1]){
         return solve(k-1,cur,tar);
     }
