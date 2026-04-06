@@ -16,7 +16,7 @@ long long applyOp(long long a, long long b, string op) {
     return 0;
 }
 
-void solve() {
+int main() {
     string line;
     while (getline(cin, line)) {
         if (line.empty()) continue;
@@ -59,9 +59,4 @@ void solve() {
 
         cout << values.top() << endl;
     }
-}
-
-int main() {
-    solve();
-    return 0;
 }
