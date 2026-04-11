@@ -1,12 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
+/*
+思考錯誤: 用col繼續搜row而不是1,n
+*/
 int main(){
     int n;
     cin>>n;
-    int l = 1 ,r = n,row,col;
+    int l = 1 ,r = n,row=1,col=1;
     while(l<=r){
         int mid = (l+r)/2;
-        cout << '?' << row << " " << row << " " << l << " " << mid << " " << endl;
+        cout << '?' << 1 << " " << n << " " << l << " " << mid << " " << endl;
         int a;
         cin>>a;
         if(a==mid-l+1){
@@ -31,5 +34,5 @@ int main(){
             r = mid-1;
         }
     }
-    cout << '!' << col << ' ' << row << endl;
+    cout << '!' << row << ' ' << col << endl;
 }
