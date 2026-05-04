@@ -6,10 +6,10 @@ const int INF = 1e9+9;
 void solve(){
     ll n,m;
     cin>>n>>m;
-    deque<int> dq;
+    deque<ll> dq;
     ll total=1;
     for(int i=0;i<n;i++){
-        int x;
+        ll x;
         cin>>x;
         dq.push_back(x);
         total*=x;
