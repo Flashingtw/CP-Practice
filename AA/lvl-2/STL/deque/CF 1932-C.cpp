@@ -7,26 +7,32 @@ void solve(){
     ll n,m;
     cin>>n>>m;
     deque<ll> dq;
-    ll total=1;
     for(int i=0;i<n;i++){
         ll x;
         cin>>x;
         dq.push_back(x);
-        total*=x;
     }
     string s;
     cin>>s;
+    vector<int> ans;
     for(char c:s){
-        cout << total%m << ' ';
         if(c=='L'){
-            total/=dq.front();
+            ans.push_back(dq.front());
             dq.pop_front();
         }
         else{
-            total/=dq.back();
+            ans.push_back(dq.back());
             dq.pop_back();
         }
     }
+    ll total=1;
+    reverse(ans.begin(),ans.end());
+    for(int &a:ans){
+        total = (total*a)%m;
+        a = total;
+    }
+    reverse(ans.begin(),ans.end());
+    for(int a:ans) cout << a << ' ';
 }
 int main(){
     int t;
