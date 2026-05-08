@@ -9,7 +9,7 @@ int main() {
     n = Get_Box();
     if (n == 1) {
         Report(1);
-        return 0; // 確保程式在此結束
+        return 0;
     }
     for (int i=3;i<=n;i++) {
         int k = Med3(a,b,i);
