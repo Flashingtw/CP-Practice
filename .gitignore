@@ -5,3 +5,5 @@
 
 .cph/
 .*.cpp_*
+
+.json
