@@ -7,17 +7,24 @@ bool solve(){
     int n;
     cin>>n;
     vector<pii> v(n);
-    for(auto &[r,l]:v) cin>>l>>r;
+    for(auto &[l,r]:v) cin>>l>>r;
     sort(v.begin(),v.end());
+    priority_queue<int,vector<int>,greater<>> pq;
     int cur=0;//next can use
-    for(auto [r,l]:v){
-        if(cur<l) cur=l;
-        if(cur>r){
-            return 0;
+    int i=0;
+    while(i<n||!pq.empty()){
+        if(i<n&&pq.empty()) cur = max(cur,v[i].first);
+        
+        while(i<n&&v[i].first<=cur){
+            pq.push(v[i++].second);
         }
-        cur++;
+        if(!pq.empty()){
+            if(pq.top()<cur) return 0;
+            cur++;
+            pq.pop();
+        }
     }
-    return 1;
+    return pq.empty();
 }
 int main(){
     int t;
