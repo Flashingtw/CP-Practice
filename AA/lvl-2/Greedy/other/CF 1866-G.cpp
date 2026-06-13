@@ -15,7 +15,7 @@ bool chk(ll tar,vector<ev> &v){
     priority_queue<pii,vector<pii>,greater<>> pq;
     for(int i=0;i<n;i++){
         while(j<n&&v[j].l<=i){
-            pq.push({v[j].r,v[j].a});
+            if(v[j].a>0) pq.push({v[j].r,v[j].a});
             j++;
         } 
         ll cur=0;
@@ -28,7 +28,7 @@ bool chk(ll tar,vector<ev> &v){
                 pq.push({r,pass});
             }
         }
-        if(!pq.empty()&&pq.top().first==i) return 0;
+        if(!pq.empty()&&pq.top().first<=i) return 0;
     }
     return pq.empty();
 }
