@@ -10,6 +10,20 @@ int main(){
     cin>>n;
     for(int i=0;i<n;i++) cin>>a[i];
     sort(a,a+n);
+    int target;
+    cin>>target;
     int l=0,r=n-1;
-}
+    bool ans=0;
+    while(l<=r){
+        int mid = (l+r)/2;
+        if(a[mid]<target){
+            l = mid+1;
+        }
+        else{
+            r = mid-1;
+        }
 
+        if(a[mid]==target) ans = 1;
+    }
+    cout << ans << '\n';
+}
