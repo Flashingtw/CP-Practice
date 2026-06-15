@@ -19,11 +19,10 @@ int main(){
         if(a[mid]<target){
             l = mid+1;
         }
-        else{
+        else if(a[mid]>target){
             r = mid-1;
         }
-
-        if(a[mid]==target) ans = 1;
+        else ans = 1;
     }
     cout << ans << '\n';
 }
