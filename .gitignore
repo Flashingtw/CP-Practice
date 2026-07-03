@@ -5,5 +5,5 @@
 
 .cph/
 .*.cpp_*
-
+*.bin
 .vscode/
