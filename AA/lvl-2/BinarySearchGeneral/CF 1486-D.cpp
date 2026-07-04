@@ -34,9 +34,9 @@ int main(){
         ll mid = (l+r)/2;
         if(chk(mid,v)){
             ans = mid;
-            r = mid-1;
+            l = mid+1;
         }
-        else l = mid+1;
+        else r = mid-1;
     }
     cout << ans << '\n';
 }
