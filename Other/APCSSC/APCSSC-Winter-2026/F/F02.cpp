@@ -12,6 +12,7 @@ void rec(int c,long long l,long long r) {
     rec(c+1,l,r+v[c]);
 }
 int main() {
+    ios::sync_with_stdio(0),cin.tie(0);
     cin>>n;
     v.resize(n);
     for (int i=0;i<n;i++) cin>>v[i];
