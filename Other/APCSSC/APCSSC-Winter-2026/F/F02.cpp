@@ -1,21 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<long long> v;
-long long ans=1e18;
-int n;
-void rec(int c,long long l,long long r) {
-    if (c==n) {
-        ans=min(ans,abs(l-r));
-        return;
-    }
-    rec(c+1,l+v[c],r);
-    rec(c+1,l,r+v[c]);
+typedef long long ll;
+typedef pair<int,int> pii;
+const int INF = 1e9+9;
+int a[30];
+void rec(ll l,ll r,int idx){
+
 }
-int main() {
+
+int main(){
     ios::sync_with_stdio(0),cin.tie(0);
-    cin>>n;
-    v.resize(n);
-    for (int i=0;i<n;i++) cin>>v[i];
-    rec(0,0,0);
-    cout << ans;
+    int n;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+
 }

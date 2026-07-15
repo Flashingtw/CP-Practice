@@ -11,5 +11,5 @@ int main() {
         if (v[i]>current) break;
         current+=v[i];
     }
-    cout << current;
+    cout << current << '\n';
 }

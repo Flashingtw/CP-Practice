@@ -13,3 +13,5 @@ int main(){
     if(m*2>sum) cout << m*2;
     else cout << sum;
 }
+//m*2>sum case: 一個人看完至少要sum 如果其中一個人在看m時另一個人去看剩下的書 -> 看完之後還是要再看最長的那本
+//other: 證不出來qwq

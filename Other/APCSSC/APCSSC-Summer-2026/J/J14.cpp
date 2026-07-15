@@ -19,7 +19,6 @@ int main(){
         pq.pop();
         int b = pq.top();
         pq.pop();
-        
         ans+=a+b;
         pq.push(a+b);
     }
