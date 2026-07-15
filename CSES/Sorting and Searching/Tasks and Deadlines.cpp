@@ -19,4 +19,4 @@ int main(){
 //....c1,c2,c3,c4....
 //cur
 //t1-(cur+c1)+t2-(cur+c1+c2)+t3-(cur+c1+c2+c3)+t4-(cur+c1+c2+c3+c4)
-//t1+t2+t3+t4 - (cur+4c1+3c2+2c3+4c1) ==> 前面的cur越小越好
+//t1+t2+t3+t4 - (cur+4c1+3c2+2c3+1c4) ==> 前面的cur越小越好
