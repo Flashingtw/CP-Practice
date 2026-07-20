@@ -38,7 +38,7 @@ int main(){
         tlp[v].push_back(u);
     }
     for(int i=1;i<=n;i++){
-        dist[i][0] = dist[i][1] = -1;
+        dist[i][0] = dist[i][1] = INF;
     }
     priority_queue<state> pq;
     pq.push({1,0,0});
@@ -48,20 +48,18 @@ int main(){
         pq.pop();
         if(dist[u][used]<d) continue;
         for(auto [v,c]:adj[u]){
-            if(dist[v][used]!=-1&&dist[v][used]<=d+c) continue;
+            if(dist[v][used]<=d+c) continue;
             dist[v][used] = d+c;
             pq.push({v,d+c,used});
         }
         if(!used){
             for(int v:tlp[u]){
-                if(dist[v][1]!=-1&&dist[v][1]<=d) continue;
+                if(dist[v][1]<=d) continue;
                 pq.push({v,d,1});
                 dist[v][1] = d;
             }
         }
     }
-    ll ans = 1e9;
-    if(dist[n][0]!=-1) ans = min(ans,dist[n][0]);
-    if(dist[n][1]!=-1) ans = min(ans,dist[n][1]);
-    cout << (ans==1e9?-1:ans) << '\n';
+    ll ans = min(dist[n][0],dist[n][1]);
+    cout << (ans==INF?-1:ans) << '\n';
 }

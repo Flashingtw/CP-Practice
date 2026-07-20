@@ -14,7 +14,7 @@ int shf;
 ll cst(int x,int y){
     int typ=-1;
     if(x<=a[y]) typ=0;
-    else if (x>=0) typ=1;
+    else if (x>=shf) typ=1;
     else typ=2;
     return dx[typ];
 }
