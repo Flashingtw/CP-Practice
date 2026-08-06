@@ -24,35 +24,43 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-using plv = pair<ll,vi>;
+const int N = 2e5+5;
+ll A[N],B[N],C[N];
+ll f(vi v){
+    ll a=A[v[0]];
+    ll b=B[v[1]];
+    ll c=C[v[2]];
+    return a*b+b*c+c*a;
+}
 int dx[] = {1,0,0};
 int dy[] = {0,1,0};
 int dz[] = {0,0,1};
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int X,Y,Z,k;
-    cin>>X>>Y>>Z>>k;
-    vl x(X),y(Y),z(Z);
-    rep(i,0,X) cin>>x[i];
-    rep(i,0,Y) cin>>y[i];
-    rep(i,0,Z) cin>>z[i];
-    sort(all(x),greater());
-    sort(all(y),greater());
-    sort(all(z),greater());
-
+    int n,k;
+    cin>>n>>k;
+    rep(i,0,n) cin>>A[i];
+    rep(i,0,n) cin>>B[i];
+    rep(i,0,n) cin>>C[i];
+    sort(A,A+n,greater());
+    sort(B,B+n,greater());
+    sort(C,C+n,greater());
+    using plv = pair<ll,vi>;
     priority_queue<plv> pq;
     set<vi> s;
-    s.insert({0,0,0});
-    pq.push({x[0]+y[0]+z[0],{0,0,0}});
-    for(int i=0;i<k;i++){
-        auto [a,b] = pq.top();
-        cout << a << '\n';
+    vi st = {0,0,0};
+    s.insert(st);
+    pq.push({f(st),st});
+    for(int i=0;i<k-1;i++){
+        auto [val,v] = pq.top();
         pq.pop();
         for(int d=0;d<3;d++){
-            int nx=b[0]+dx[d],ny=b[1]+dy[d],nz=b[2]+dz[d];
-            if(nx>=X||ny>=Y||nz>=Z||s.find({nx,ny,nz})!=s.end()) continue;
-            pq.push({x[nx]+y[ny]+z[nz],{nx,ny,nz}});
-            s.insert({nx,ny,nz});
+            int nx = v[0]+dx[d],ny=v[1]+dy[d],nz=v[2]+dz[d];
+            vi nxt = {nx,ny,nz};
+            if(nx>=n||ny>=n||nz>=n||s.find(nxt)!=s.end()) continue;
+            pq.push({f(nxt),nxt});
+            s.insert(nxt);
         }
     }
+    cout << pq.top().first << '\n';
 }
