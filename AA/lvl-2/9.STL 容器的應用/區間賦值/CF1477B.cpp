@@ -24,33 +24,63 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
+map<int,int> mp;
+string s,f;
+int n,q;
 
+void split(int i){
+    auto it = mp.lower_bound(i);
+    if(it->first!=i){
+        int tmp = prev(it)->second;
+        mp[i] = tmp;
+    }
+}
+
+bool merge(int l,int r){
+    auto itl = mp.find(l),itr = mp.find(r);
+    int cnt1=0,cnt0=0;
+    for(auto it=itl;it!=itr;it++){
+        int c = next(it)->first-it->first;;
+        if(it->second) cnt1+=c;
+        else cnt0+=c;
+    }
+    if(cnt1==cnt0) return 0;
+    mp.erase(itl,itr);
+    mp[l] = cnt1>cnt0;
+    return 1;
+}
 void solve() {
-    int n,q;
+    mp.clear();
     cin>>n>>q;
-    string s,f;
     cin>>s>>f;
     vector<pii> Q(q);
     rep(i,0,q) cin>>Q[i].F>>Q[i].S;
     reverse(all(Q));
+    mp[0] = f[0]-'0';
+    rep(i,1,n){
+        if(f[i]!=f[i-1]) mp[i] = f[i]-'0';
+    }
+    mp[n]=0;
     rep(i,0,q){
         auto [l,r] = Q[i];
         l--;
-        int cnt0=0,cnt1=0;
-        rep(idx,l,r){
-            if(f[idx]=='0') cnt0++;
-            else cnt1++;
-        }
-        if(cnt0==cnt1){
+        split(l),split(r);
+        if(!merge(l,r)){
             cout << "NO" << '\n';
             return;
         }
-        rep(idx,l,r){
-            f[idx]=(cnt0>cnt1?'0':'1');
+    }
+    auto it = mp.begin();
+    rep(i,0,n){
+        if(next(it)->first==i){
+            it++;
+        }
+        if((it->second)^(s[i]-'0')){
+            cout << "NO" << '\n';
+            return;
         }
     }
-    if(s==f) cout << "YES" << '\n';
-    else cout << "NO" << '\n';
+    cout << "YES" << '\n';
 }
 /*
 s改[l,r] q 次變成f
