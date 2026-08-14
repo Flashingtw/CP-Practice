@@ -24,31 +24,49 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-string s;
 
-char step(char c,ll s){
-    return (c-'A'+s)%3+'A';
+vi adj[4010];
+int n,m;
+int vis[4010];
+
+void init(){
+    rep(i,1,n+1){
+        vis[i] = vis[i+n] = 0;
+    }
 }
-
-char f(ll t, ll k){
-    if(!t) return s[k-1];
-    if(k==1) return step(s[0],t);
-    char c = f(t-1,(k+1)/2);//上一層的字母
-    return step(c,2-(k&1));//上一層下來走左or右
+int cnt(){
+    int cnt=0;
+    rep(i,1,n+1) if(vis[i]||vis[n+i]) cnt++;
+    return cnt;
+}
+void dfs(int u){
+    for(int v:adj[u]){
+        if(vis[v]) continue;
+        vis[v] = 1;
+        dfs(v);
+    }
 }
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    cin>>s;
-    int q;
-    cin>>q;
-    while(q--){
-        ll n,k;
-        cin>>n>>k;
-        cout << f(n,k) << '\n';
+    cin>>n>>m;
+    rep(i,0,m){
+        int u,v,c;
+        cin>>u>>v>>c;
+        adj[u].push_back(v+(c*n));
+        if(!c){
+            adj[u+n].push_back(v+n);
+        }
     }
+    int ans=0;
+    rep(i,1,n+1){
+        init();
+        vis[i]=1;
+        dfs(i);
+        ans+=cnt();
+    }
+    cout << ans << '\n';
 }
 /*
-f用來回傳上一層字母走下來的字(往左1 往右2) 
-step可以算步數 如果k==1了的話那其實就是第一個字母一直往左走走t層
+不能帶著狀態下去
 */

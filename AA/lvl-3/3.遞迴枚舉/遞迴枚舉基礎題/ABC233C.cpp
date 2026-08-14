@@ -24,31 +24,36 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-string s;
 
-char step(char c,ll s){
-    return (c-'A'+s)%3+'A';
-}
+vector<vl> a;  
+int n;
+ll x;
+ll ans;
 
-char f(ll t, ll k){
-    if(!t) return s[k-1];
-    if(k==1) return step(s[0],t);
-    char c = f(t-1,(k+1)/2);//上一層的字母
-    return step(c,2-(k&1));//上一層下來走左or右
+void dfs(int idx,ll cur){
+    if(idx==n){
+        if(cur==x) ans++; 
+        return;
+    }
+    for(ll i:a[idx]){
+        if(cur>x/i+1) continue;
+        dfs(idx+1,cur*i);
+    }
 }
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    cin>>s;
-    int q;
-    cin>>q;
-    while(q--){
-        ll n,k;
-        cin>>n>>k;
-        cout << f(n,k) << '\n';
+    cin>>n>>x;
+    a.resize(n);
+    rep(i,0,n){
+        int k;
+        cin>>k;
+        rep(j,0,k){
+            int b;
+            cin>>b;
+            a[i].pb(b);
+        }
     }
+    dfs(0,1);
+    cout << ans << '\n';
 }
-/*
-f用來回傳上一層字母走下來的字(往左1 往右2) 
-step可以算步數 如果k==1了的話那其實就是第一個字母一直往左走走t層
-*/
