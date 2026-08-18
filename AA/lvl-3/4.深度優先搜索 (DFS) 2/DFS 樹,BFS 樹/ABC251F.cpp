@@ -27,35 +27,48 @@ const ll LINF = 1e18+9;
 const int N = 2e5+5;
 
 vi adj[N];
-int l[N],r[N],p[N];
-int cnt;
-void dfs(int u,int par){
-    p[u]=par;
-    l[u]=++cnt;
+vpii dfse,bfse;
+int vis[N],vis1[N];
+void dfs(int u){
     for(int v:adj[u]){
-        if(v==par) continue;
-        dfs(v,u);
+        if(vis1[v]) continue;
+        vis1[v]=1;
+        dfse.push_back({u,v});
+        dfs(v);
     }
-    r[u]=cnt;
 }
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int n;
-    cin>>n;
-    rep(i,0,n-1){
+    int n,m;
+    cin>>n>>m;
+    rep(i,0,m){
         int u,v;
         cin>>u>>v;
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    dfs(1,1);
-    int q;
-    cin>>q;
-    while(q--){
-        int x,y;
-        cin>>x>>y;
-        x = p[x];
-        cout << (l[x]<=l[y]&&l[y]<=r[x]) << '\n';
+    vis1[1]=1;
+    dfs(1);
+
+    queue<int> q;
+    vis[1]=1;
+    q.push(1);
+    while(!q.empty()){
+        int u = q.front();
+        q.pop();
+        for(int v:adj[u]){
+            if(vis[v]) continue;
+            vis[v]=1;
+            q.push(v);
+            bfse.push_back({u,v});
+        }
+    }
+
+    for(auto [a,b]:dfse){
+        cout << a << ' ' << b << '\n';
+    }
+    for(auto [a,b]:bfse){
+        cout << a << ' ' << b << '\n';
     }
 }
