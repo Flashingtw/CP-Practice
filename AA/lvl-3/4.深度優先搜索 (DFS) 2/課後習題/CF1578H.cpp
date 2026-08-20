@@ -27,5 +27,49 @@ const ll LINF = 1e18+9;
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    
+    string s;
+    cin>>s;
+    int n = sz(s);
+    stack<char> op;
+    stack<int> d;
+    for(int i=0;i<n;i++){
+        if(s[i]=='('){
+            if(s[i+1]==')'){
+                i++;
+                d.push(0);
+            }
+            else op.push('(');
+        }
+        else if (s[i]==')'){
+            while(op.top()!='('){
+                int y = d.top();
+                d.pop();
+                int x = d.top();
+                d.pop();
+                op.pop();
+                d.push(max(x+1,y));
+            }
+            op.pop();
+        }
+        else{
+            op.push('-');
+            i++;
+        }
+    }
+    while(!op.empty()){
+        int y = d.top();
+        d.pop();
+        int x = d.top();
+        d.pop();
+        op.pop();
+        d.push(max(x+1,y));
+    }
+    cout << d.top() << '\n';
 }
+/*
+遇到)可以先把裡面的算到(為止
+->等最後結合
+) 1
+( 2
+-> 3
+*/
