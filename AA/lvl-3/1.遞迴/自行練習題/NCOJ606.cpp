@@ -25,11 +25,22 @@ typedef vector<pll> vpll;
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
 
-void rec(){
-    
+int a[30];
+int n,k;
+bool ans;
+void dfs(int idx,int cur){
+    if(idx==n){
+        if(cur==k) ans=1;
+        return;
+    }
+    dfs(idx+1,cur+a[idx]);
+    dfs(idx+1,cur);
 }
 
 int main() {
-    ios::sync_with_stdio(0),cin.tie(0);
-    
+ios::sync_with_stdio(0),cin.tie(0);
+    cin>>n>>k;
+    rep(i,0,n) cin>>a[i];
+    dfs(0,0);
+    cout << (ans?"YES":"NO") << '\n';
 }

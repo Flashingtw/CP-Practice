@@ -1,13 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define pb push_back
-#define F first
-#define S second
-#define all(x) (x).begin(),(x).end()
-#define sz(x) (int)(x).size()
-#define rep(i,a,b) for(int i=a;i<b;++i)
-
 typedef long long ll;
 typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
@@ -26,11 +19,15 @@ const int INF = 1e9+9;
 const ll LINF = 1e18+9;
 
 int rec(int n){
-
+    if(n==0) return 0;
+    int a;
+    cin>>a;
+    return a+rec(n-1);
 }
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
     int n;
     cin>>n;
+    cout << rec(n) << '\n';
 }
