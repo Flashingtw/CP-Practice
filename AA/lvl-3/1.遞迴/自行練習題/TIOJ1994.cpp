@@ -36,8 +36,8 @@ pii dd[4][4] =
 int d[4][4] =
 {
     {1,0,0,2},
-    {3,1,1,0},
-    {0,2,2,3},
+    {0,1,1,3},
+    {3,2,2,0},
     {2,3,3,1},
 };
 int g[3000][3000];
@@ -60,7 +60,7 @@ int main() {
     ios::sync_with_stdio(0),cin.tie(0);
     int n;
     cin>>n;
-    int p = pow(2,n);
+    int p = 1<<n;
     rec(n,0,p,0,0);
     for(int i=0;i<p;i++){
         for(int j=0;j<p;j++){
@@ -69,3 +69,6 @@ int main() {
         cout << '\n';
     }
 }
+/*
+難,再複習
+*/
