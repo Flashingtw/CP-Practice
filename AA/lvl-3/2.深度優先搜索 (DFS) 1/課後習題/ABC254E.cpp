@@ -24,29 +24,37 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
+const int N = 1.5e5+5;
+vi adj[N];
 
-int rec(int n,int k){
-    if(n==1) return 1;
-    if(k<=n/2){
-        return k*2;
+void dfs(int u,int d,int k,set<int> &s){
+    s.insert(u);
+    if(d==k){
+        return;
     }
-    int a = n/2;
-    int x = rec(n-a,k-a);
-    if(n&1){
-        return (x==1?n:2*x-3);
-    }
-    else{
-        return 2*x-1;
+    for(int v:adj[u]){
+        dfs(v,d+1,k,s);
     }
 }
-
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
+    int n,m;
+    cin>>n>>m;
+    rep(i,0,m){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
     int q;
     cin>>q;
     while(q--){
-        int n,k;
-        cin>>n>>k;
-        cout << rec(n,k) << '\n';
+        int x,k;
+        cin>>x>>k;
+        set<int> s;
+        dfs(x,0,k,s);
+        ll ans=0;
+        for(int i:s) ans+=i;
+        cout << ans << '\n';
     }
 }
