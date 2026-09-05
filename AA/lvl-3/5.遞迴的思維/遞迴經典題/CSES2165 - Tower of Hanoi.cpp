@@ -25,15 +25,15 @@ typedef vector<pll> vpll;
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
 
-void h(int n,int from,int to){
+void rec(int n,int from,int to){
     if(n==1){
         cout << from << ' ' << to << '\n';
         return;
     }
     int oth = 6-from-to;
-    h(n-1,from,oth);
+    rec(n-1,from,oth);
     cout << from << ' ' << to << '\n';
-    h(n-1,oth,to);
+    rec(n-1,oth,to);
 }
 
 int main() {
@@ -41,5 +41,5 @@ int main() {
     int n;
     cin>>n;
     cout << (1<<n)-1 << '\n';
-    h(n,1,3);
+    rec(n,1,3);
 }
