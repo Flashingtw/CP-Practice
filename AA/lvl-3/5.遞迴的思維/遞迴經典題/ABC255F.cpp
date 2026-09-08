@@ -24,33 +24,44 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-const int N = 1e5+5;
+const int N = 2e5+5;
 int pre[N],in[N],in_pos[N];
-
-void dfs(int pl,int pr,int l,int r){
-    if(pl>pr||l>r) return;
-    int idx = in_pos[pre[pl]];
-    int ls = idx - l;
-    dfs(pl+1,pl+ls,l,idx-1);
-    dfs(pl+ls+1,pr,idx+1,r);
-    cout << pre[pl] << ' ';
+int lc[N],rc[N];
+bool chk;
+int dfs(int pl,int pr,int l,int r){
+    if(pl>pr||l>r) return 0;
+    int idx = pre[pl];
+    int mid = in_pos[idx];
+    if(mid<l||mid>r) {
+        chk=1;
+        return 0;
+    }
+    int ls = mid-l;
+    lc[idx] = dfs(pl+1,pl+ls,l,mid-1);
+    rc[idx] = dfs(pl+ls+1,pr,mid+1,r);
+    return idx;
 }
 
-int main(){
+int main() {
     ios::sync_with_stdio(0),cin.tie(0);
     int n;
     cin>>n;
-    rep(i,1,n+1) cin>>pre[i];
-    rep(i,1,n+1) {
+    rep(i,1,n+1){
+        cin>>pre[i];
+    }
+    rep(i,1,n+1){
         cin>>in[i];
         in_pos[in[i]]=i;
     }
     dfs(1,n,1,n);
+    if(chk||pre[1]!=1){
+        cout << -1 << '\n';
+        return 0;
+    }
+    for(int i=1;i<=n;i++){
+        cout << lc[i] << ' ' << rc[i] << '\n';
+    }
 }
 /*
-卡index映射
-preorder ,inorder搞混
-遞迴沒有寫清楚, 一直亂湊
-大小 = inorder_pos - l;
-
+題目沒看完,依舊沒搞好pre ,in 的index
 */

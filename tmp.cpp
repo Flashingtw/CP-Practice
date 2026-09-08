@@ -27,5 +27,15 @@ const ll LINF = 1e18+9;
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    
+    string s;
+    set<string> st;
+    while(1){
+        cin>>s;
+        if(s=="0") break;
+        st.insert(s);
+    }
+    while(cin>>s){
+        if(s.back()=='*') s.pop_back();
+        if(st.find(s)==st.end()) cout << s << '\n';
+    }
 }
