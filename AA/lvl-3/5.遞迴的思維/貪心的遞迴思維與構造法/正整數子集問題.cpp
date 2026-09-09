@@ -24,25 +24,24 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-ll a[55][55];
+
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int h,w;
-    cin>>h>>w;
-    for(int i=1;i<=h;i++){
-        for(int j=1;j<=w;j++){
-            cin>>a[i][j];
+    ll x,y;
+    cin>>x>>y;
+    int cnt=0;
+    while(1){
+        if(!y||!x) break;
+        if(x>=y){
+            x-=y;
+            y--;
+            cnt++;
+        }
+        else{
+            x=0;
+            cnt++;
+            break;
         }
     }
-    bool chk=1;
-    for(int i1=1;i1<=h;i1++){
-        for(int i2=i1+1;i2<=h;i2++){
-            for(int j1=1;j1<=w;j1++){
-                for(int j2=j1+1;j2<=w;j2++){
-                    if(a[i1][j1]+a[i2][j2]>a[i2][j1]+a[i1][j2]) chk=0;
-                }
-            }
-        }
-    }
-    cout << (chk?"Yes":"No") << '\n';
+    cout << (x?-1:cnt) << '\n';
 }

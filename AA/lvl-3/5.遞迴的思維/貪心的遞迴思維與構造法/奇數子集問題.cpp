@@ -24,25 +24,28 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-ll a[55][55];
+
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int h,w;
-    cin>>h>>w;
-    for(int i=1;i<=h;i++){
-        for(int j=1;j<=w;j++){
-            cin>>a[i][j];
+    ll x,y;
+    cin>>x>>y;
+    int cnt=0;
+    vector<int> d;
+    for(int i=y;i>0;i--){
+        if(x>=i*2-1){
+            d.push_back(i*2-1);
+            cnt++;
+            x-=i*2-1;
         }
     }
-    bool chk=1;
-    for(int i1=1;i1<=h;i1++){
-        for(int i2=i1+1;i2<=h;i2++){
-            for(int j1=1;j1<=w;j1++){
-                for(int j2=j1+1;j2<=w;j2++){
-                    if(a[i1][j1]+a[i2][j2]>a[i2][j1]+a[i1][j2]) chk=0;
-                }
-            }
+    if(x>0){
+        if(x==1&&d.size()>=2&&d[d.size()-2]>=7){
+            cout << cnt+1 << '\n';
         }
+        else cout << -1 << '\n';
     }
-    cout << (chk?"Yes":"No") << '\n';
+    else cout << cnt << '\n';
 }
+/*
+要讓總和多1至少要能7+1 -> 5+3+1
+*/
