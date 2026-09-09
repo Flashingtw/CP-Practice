@@ -25,32 +25,15 @@ typedef vector<pll> vpll;
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
 
-int main(){
+int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int n;
-    cin>>n;
-    map<int,int> cnt;
-    priority_queue<pii> pq;
+    int n,c;
+    cin>>n>>c;
+    map<string,int> mp;
     rep(i,0,n){
-        int a;
-        cin>>a;
-        cnt[a]++;
-    }
-    for(auto [a,b]:cnt){
-        pq.push({b,a});
-    }
-    vpii ans;
-    while(pq.size()>1){
-        auto [x,y] = pq.top();
-        pq.pop();
-        auto [a,b] = pq.top();
-        pq.pop();
-        ans.push_back({b,y});
-        if(x>1) pq.push({x-1,y});
-        if(a>1) pq.push({a-1,b});
-    }
-    cout << ans.size() << '\n';
-    for(auto [a,b]:ans){
-        cout << a << ' ' << b <<'\n';
+        string s;
+        cin>>s;
+        mp[s]++;
+        cout << mp.size() << ' ' << mp[s] << '\n';
     }
 }
