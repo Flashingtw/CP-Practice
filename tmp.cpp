@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-void f( vector<vector<int>>a) {
+vector<vector<int>> f( vector<vector<int>>a) {
     int r = a.size();
     int c = a[0].size();
     vector<vector<int>> res(r, vector<int>(c));
@@ -13,7 +13,7 @@ void f( vector<vector<int>>a) {
     return res;
 }
 
-void p( vector<vector<int>> a) {
+vector<vector<int>> p( vector<vector<int>> a) {
     int r = a.size();
     int c = a[0].size();
     vector<vector<int>> res(c, vector<int>(r));
