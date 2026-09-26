@@ -31,22 +31,44 @@ const ll LINF = 1e18+9;
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int n;
-    cin>>n;
-    int idx=-1,mx = -INF;
-    for(int i=0;i<n;i++){
-        int c,m,v;
-        /*
-        k*2+U*2 = c*2
-        */
-        cin>>c>>m>>v;
-        c*=2;
-        int k = m*m*v;
-        int u = c-k;
-        if(k>mx){
-            mx = u;
-            idx = i+1;
+    int n,q;
+    cin>>n>>q;
+    vector<char> ans(n+1,'a');
+    vi cvr(n+1);
+    vi time(n+1);
+    char cur='a';
+    int last=0;
+    int tmr=0;
+    while(q--){
+        int t;
+        cin>>t;
+        if(t==1){
+            int x;
+            cin>>x;
+            if(cvr[x]==1){
+                cvr[x]=0;
+                time[x]=tmr+1;
+            }
+            else{
+                if(last>time[x]) ans[x]=cur;
+                cvr[x]=1;
+            }
+        }
+        else{
+            char c;
+            cin>>c;
+            cur = c;
+            last=tmr+1;
+        }
+        tmr++;
+    }
+    for(int i=1;i<=n;i++){
+        if(cvr[i]==1){
+            cout << ans[i];
+        }
+        else{
+            if(last<time[i]) cout << ans[i];
+            else cout << cur;
         }
     }
-    cout << idx << '\n';
 }

@@ -28,25 +28,32 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-
+const int N = 1e5+5;
+ll dp[105][N];
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int n;
-    cin>>n;
-    int idx=-1,mx = -INF;
-    for(int i=0;i<n;i++){
-        int c,m,v;
-        /*
-        k*2+U*2 = c*2
-        */
-        cin>>c>>m>>v;
-        c*=2;
-        int k = m*m*v;
-        int u = c-k;
-        if(k>mx){
-            mx = u;
-            idx = i+1;
+    int n,w;
+    cin>>n>>w;
+    vpll a(n+1);
+    REP(i,1,n+1) cin>>a[i].f>>a[i].s;
+    REP(i,0,n+1){
+        REP(j,1,N-4){
+            dp[i][j]=LINF;
         }
     }
-    cout << idx << '\n';
+    dp[0][0] = 0;
+    for(int i=1;i<=n;i++){
+        for(int j=0;j<N;j++){
+            dp[i][j] = dp[i-1][j];
+            if(j>=a[i].s) dp[i][j] = min(dp[i][j],dp[i-1][j-a[i].s]+a[i].f);
+        }
+    }
+    int ans=0;
+    for(int i=N-5;i>=1;i--){
+        if(dp[n][i]<=w){
+            ans = i;
+            break;
+        }
+    }
+    cout << ans << '\n';
 }

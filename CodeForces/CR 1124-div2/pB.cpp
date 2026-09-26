@@ -29,24 +29,38 @@ typedef vector<pll> vpll;
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
 
-int main() {
-    ios::sync_with_stdio(0),cin.tie(0);
+ll f(ll a){
+    ll ans=0;
+    while(a>0){
+        ll k = a%10;
+        ans+=k*k;
+        a/=10;
+    }
+    return ans;
+}
+
+void solve() {
     int n;
     cin>>n;
-    int idx=-1,mx = -INF;
+    vi a(n);
+    int ans=0;
+    REP(i,0,n) cin>>a[i];
+    vi cnt(1000);
     for(int i=0;i<n;i++){
-        int c,m,v;
-        /*
-        k*2+U*2 = c*2
-        */
-        cin>>c>>m>>v;
-        c*=2;
-        int k = m*m*v;
-        int u = c-k;
-        if(k>mx){
-            mx = u;
-            idx = i+1;
+        REP(j,0,1000){
+            a[i] = f(a[i]);
         }
+        cnt[a[i]]++;
     }
-    cout << idx << '\n';
+    for(int i=1;i<1000;i++){
+        ans += cnt[i]*(cnt[i]-1)/2;
+    }
+    cout << ans << '\n';
+}
+
+int main() {
+    ios::sync_with_stdio(0),cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--) solve();
 }

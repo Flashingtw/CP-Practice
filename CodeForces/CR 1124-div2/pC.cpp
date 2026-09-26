@@ -29,24 +29,36 @@ typedef vector<pll> vpll;
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
 
-int main() {
-    ios::sync_with_stdio(0),cin.tie(0);
-    int n;
-    cin>>n;
-    int idx=-1,mx = -INF;
-    for(int i=0;i<n;i++){
-        int c,m,v;
-        /*
-        k*2+U*2 = c*2
-        */
-        cin>>c>>m>>v;
-        c*=2;
-        int k = m*m*v;
-        int u = c-k;
-        if(k>mx){
-            mx = u;
-            idx = i+1;
+void solve() {
+    int n,k;
+    cin>>n>>k;
+    vi a(n+1);
+    REP(i,1,n+1){
+        cin>>a[i];
+    }
+    ll sum=0;
+    if(n<2*k-1){
+        for(int i=1;i<=n-k+1;i++){
+            sum+=max(a[i],a[n-i+1]);
         }
     }
-    cout << idx << '\n';
+    else{
+        for(int i=1;i<=k-1;i++){
+            sum+=max(a[i],a[n-i+1]);
+        }
+        for(int i=k;i<=n-k+1;i++){
+            sum+=a[i];
+        }
+    }
+    cout << sum << '\n';
 }
+
+int main() {
+    ios::sync_with_stdio(0),cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--) solve();
+}
+/*
+觀察題
+*/
