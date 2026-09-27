@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <vector>
-#include "lib1617.h"
+#include "lib2427.h"
 
 int n;
 
@@ -36,6 +36,7 @@ int main() {
         return k2 == x; 
     };
     
-    std::nth_element(v.begin(), v.begin() + (n - 3) / 2, v.end(), cmp);
-    Report(v[(n - 3) / 2]);
+    int target = (n - 1) / 2 - 1;
+    std::nth_element(v.begin(), v.begin() + target, v.end(), cmp);
+    Report(v[target]);
 }
