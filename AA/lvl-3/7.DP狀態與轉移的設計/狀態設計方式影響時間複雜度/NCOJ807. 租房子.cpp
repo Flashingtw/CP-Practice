@@ -28,24 +28,47 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-string MAX = "zzzzzzzzzzzz";
+
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int n,k;
-    cin>>n>>k;
-    vector<string> a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    int n;
+    cin>>n;
+    vector<vi> a(n,vi(4));
+    REP(i,0,n){
+        cin>>a[i][0]>>a[i][1]>>a[i][2];
+        a[i][3] = i+1;
     }
-    REP(i,0,k){MAX += "zzzzzzzzzzz";}
-    vector<vector<string>> dp(n+1,vector<string>(k+1,MAX));
-    REP(i,0,n+1) dp[i][0] = "";
-    RREP(i,n-1,0){
-        REP(j,1,k+1){
-            dp[i][j] = dp[i+1][j];
-            if(dp[i+1][j-1]==MAX) continue;
-            dp[i][j] = min(dp[i][j],a[i]+dp[i+1][j-1]);
+    sort(ALL(a));
+    vi dp(n+1);
+    vi p(n+1);
+    for(int i=0;i<n;i++){
+        dp[i] = a[i][2];
+        p[i] = i;
+        for(int j=0;j<i;j++){
+            if(a[j][1]<a[i][0]&&dp[j]+a[i][2]>dp[i]) {
+                dp[i] = dp[j]+a[i][2];
+                p[i] = j;
+            }
         }
     }
-    cout << dp[0][k] << '\n';
+    int cur=-1;
+    int mx=-1;
+    for(int i=0;i<n;i++){
+        if(dp[i]>mx){
+            mx = dp[i];
+            cur = i;
+        }
+    }
+    vi ans;
+    while(1){
+        ans.push_back(a[cur][3]);
+        if(cur==p[cur]) break;
+        cur = p[cur];
+    }
+    reverse(ALL(ans));
+    cout << mx << ' ' << ans.size() << '\n';
+    EACH(x,ans) cout << x << ' ';
 }
+/*
+沒定義清楚dp狀態
+*/

@@ -28,24 +28,37 @@ typedef vector<pll> vpll;
 
 const int INF = 1e9+9;
 const ll LINF = 1e18+9;
-string MAX = "zzzzzzzzzzzz";
+
+struct eve{
+    ll s,e,w;
+    bool operator<(const eve &oth) const{
+        return e<oth.e;
+    }
+};
+
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    int n,k;
-    cin>>n>>k;
-    vector<string> a(n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    int n;
+    cin>>n;
+    vector<eve> a(n);
+    REP(i,0,n){
+        cin>>a[i].s>>a[i].e>>a[i].w;
     }
-    REP(i,0,k){MAX += "zzzzzzzzzzz";}
-    vector<vector<string>> dp(n+1,vector<string>(k+1,MAX));
-    REP(i,0,n+1) dp[i][0] = "";
-    RREP(i,n-1,0){
-        REP(j,1,k+1){
-            dp[i][j] = dp[i+1][j];
-            if(dp[i+1][j-1]==MAX) continue;
-            dp[i][j] = min(dp[i][j],a[i]+dp[i+1][j-1]);
+    vl ed(n);
+    sort(ALL(a));
+    REP(i,0,n) ed[i] = a[i].e;
+    vl dp(n);
+    dp[0] = a[0].w;
+    REP(i,1,n){
+        int j = lower_bound(ed.begin(),ed.begin()+i,a[i].s)-ed.begin()-1;
+        if(j==-1){
+            dp[i] = max(dp[i-1],a[i].w);
+            continue;
         }
+        dp[i] = max(dp[i-1],a[i].w+dp[j]);
     }
-    cout << dp[0][k] << '\n';
+    cout << dp[n-1] << '\n';
 }
+/*
+j == -1 特判
+*/
