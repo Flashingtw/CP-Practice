@@ -40,5 +40,30 @@ const ll LINF = (1LL<<62);
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    
+    int n,m;
+    cin>>n>>m;
+    vvi a(n+1,vi(m+2));
+    REP(i,1,n+1){
+        REP(j,1,m+1){
+            cin>>a[i][j];
+        }
+    }
+    vector<vvl> dp(n+1,vvl(m+2,vl(3,-LINF)));
+    REP(i,1,m+1) dp[0][i][0] = 0; 
+    REP(i,1,n+1){
+        REP(j,1,m+1){
+            dp[i][j][0] = a[i][j]+max({dp[i-1][j][0],dp[i-1][j][1],dp[i-1][j][2]});
+        }
+        REP(j,1,m+1){
+            dp[i][j][1] = max({dp[i][j][0],a[i][j]+dp[i][j-1][0],a[i][j]+dp[i][j-1][1]});
+        }
+        RREP(j,m,1){
+            dp[i][j][2] = max({dp[i][j][0],a[i][j]+dp[i][j+1][0],a[i][j]+dp[i][j+1][2]});
+        }
+    }
+    ll ans=-LINF;
+    REP(i,1,m+1){
+        ans = max({ans,dp[n][i][0],dp[n][i][1],dp[n][i][2]});
+    }
+    cout << ans << '\n';
 }
