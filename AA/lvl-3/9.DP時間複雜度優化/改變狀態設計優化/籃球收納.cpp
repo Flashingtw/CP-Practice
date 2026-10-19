@@ -47,7 +47,7 @@ int main() {
             auto p = dp[j-b[i]];
             if(p.f==-INF) continue;
             p.f-=1;
-        p.s+=a[i];
+            p.s+=a[i];
             if(p>dp[j]) dp[j] = p;
         }
     }
