@@ -49,7 +49,7 @@ int main() {
         adj[u].push_back(v);
     }
     dp[1][0]=1;
-    for(int st=1;st<1<<n;st+=2){
+    for(int st=1;st<(1<<n);st+=2){
         for(int u=0;u<n-1;u++){
             if(!((st>>u)&1)) continue;
             for(int v:adj[u]){
