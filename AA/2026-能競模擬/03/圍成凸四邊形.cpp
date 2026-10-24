@@ -45,15 +45,15 @@ int main() {
     vl a(n);
     REP(i,0,n) cin>>a[i];
     sort(ALL(a));
-    if(n>200){
-        return 0;
-    }
-    int ans=0;
+    a.push_back(1e9);
+    ll ans=0;
     for(int i=0;i<n;i++){
         for(int j=i+1;j<n;j++){
+            int l=j+2;
             for(int k=j+1;k<n;k++){
-                //a[i]+a[j]+a[k]>a[l];
-                ans += (lower_bound(a.begin()+k+1,a.end(),a[i]+a[j]+a[k])-a.begin())-k-1;
+                if(l<=k) l=k+1;
+                while(l<n&&a[i]+a[j]+a[k]>a[l]) l++;
+                ans += l-k-1;
             }
         }
     }
