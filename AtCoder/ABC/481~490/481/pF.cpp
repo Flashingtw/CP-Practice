@@ -68,28 +68,28 @@ int main() {
         }
     }
     vl ans(n+1);
-    vl rk(n+1);
-    rk[1]=0;
-    ans[1]=0;
+    vi rk(n+1);
     vpll best(n+1,{LINF,LINF});
     for(int i=1;i<=n;i++){
         for(int v:d[i]){
             for(auto [u,c]:radj[v]){
-                if(dist[u]+1!=dist[v]) continue;    
+                if(dist[u]+1!=dist[v]) continue;
                 pll now = {rk[u],c};
                 if(now<best[v]){
                     best[v]=now;
-                    ans[v]=(10LL*ans[u]+c)%mod;
+                    ans[v] = (ans[u]*10+c)%mod;
                 }
             }
         }
-        sort(ALL(d[i]),[&](int a,int b){return best[a]<best[b];});
+        sort(ALL(d[i]),[&](auto &a,auto &b){return a<b;});
+        bool fir=0;
         int cnt=0;
-        for(int j=0;j<SZ(d[i]);j++){
-            if(j && best[d[i][j]]!=best[d[i][j-1]]){
+        for(int j:d[i]){
+            if(fir&&best[i].f!=best[i-1].f){
                 cnt++;
             }
-            rk[d[i][j]]=cnt;
+            rk[j]=cnt;
+            fir=1;
         }
     }
     for(int i=2;i<=n;i++){
