@@ -23,51 +23,51 @@ typedef pair<int,char> pic;
 
 typedef vector<int> vi;
 typedef vector<ll> vl;
+typedef vector<char> vc;
+typedef vector<string> vs;
 typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 
-const int INF = 1e9+9;
-const ll LINF = 1e18+9;
+typedef vector<vi> vvi;
+typedef vector<vl> vvl;
+typedef vector<vc> vvc;
+typedef vector<vs> vvs;
+typedef vector<vpii> vvpii;
+typedef vector<vpll> vvpll;
 
-struct state{
-    int n;
-    int p;
-};
+const int INF = 1e9+9;
+const ll LINF = (1LL<<62);
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
     int n;
     cin>>n;
     vector<int> a(4*n+1),b(4*n+1);
+    vvi v(n+1);
     REP(i,1,4*n+1) {
         char c;
         cin>>c;
         cin>>b[i];
+        v[b[i]].push_back(i);
     }
+    vpii p;
     REP(i,1,4*n+1) {
         char c;
         cin>>c;
         cin>>a[i];
-    }
-    vector<vector<state>> dp(4*n+5,vector<state>(2,{0,1}));
-    /*
-        dp[i][0] = i回合棄牌的最大收益
-        dp[i][1] = i回合翻牌的最大收益
-    */
-    REP(i,1,4*n+1){
-        dp[i][0].n = max(dp[i-1][0].n,dp[i-1][1].n);
-        
-        if(dp[i][0].n==dp[i-1][0].n) dp[i][0].p = dp[i-1][0].p;
-        else dp[i][0].p = dp[i-1][1].p;
-        
-        int u1 = dp[i-1][0].n+ (a[dp[i-1][0].p]==b[i]);
-        int u2 = dp[i-1][1].n+ (a[dp[i-1][1].p]==b[i]);;
-        if(u1>u2){
-            dp[i][1] = {u1,dp[i-1][0].p+1};
+        for(int idx:v[a[i]]){
+            p.push_back({i,-idx});
         }
+    }
+    sort(ALL(p));
+    vi dp;
+    for(auto [f,s]:p){
+        s = -s;
+        if(dp.empty()||dp.back()<s) dp.push_back(s);
         else{
-            dp[i][1] = {u2,dp[i-1][1].p+1};
+            auto it = lower_bound(ALL(dp),s);
+            *it=s;
         }
     }
-    cout << max(dp[4*n][0].n,dp[4*n][1].n) << '\n';
+    cout << dp.size() << '\n';
 }
