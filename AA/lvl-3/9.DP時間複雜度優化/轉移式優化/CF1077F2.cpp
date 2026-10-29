@@ -43,20 +43,31 @@ int main() {
     int n,k,x;
     cin>>n>>k>>x;
     vi a(n+1);
-    REP(i,1,n+1){
-        cin>>a[i];
-    }
-    if(k*x<n){
+    REP(i,1,n+1) cin>>a[i];
+    if(n/k>x){
         cout << -1 << '\n';
         return 0;
     }
     vvl dp(n+1,vl(x+1,-LINF));
-    dp[0][0]=0;
-    REP(i,1,n+1){
-        dp[i][0] = 0;
-        REP(j,1,x+1){
-            dp[i][j] = max(dp[i-1][j],dp[i-1][j-1]+a[i]);
+    dp[0][0] = 0;
+    vector<deque<int>> dq(x+1);
+    dq[0].push_back(0);
+    for(int i=1;i<=n;i++){
+        for(int j=x;j>=1;j--){
+            while(!dq[j-1].empty()&&dq[j-1].front()<i-k){
+                dq[j-1].pop_front();
+            }
+            if(!dq[j-1].empty())dp[i][j] = max(dp[i][j],dp[dq[j-1].front()][j-1]+a[i]);
+            if(dp[i][j]==-LINF) continue;
+            while(!dq[j].empty()&&dp[dq[j].back()][j]<=dp[i][j]){
+                dq[j].pop_back();
+            }
+            dq[j].push_back(i);
         }
     }
-    
+    ll ans=0;
+    for(int i=n-k+1;i<=n;i++){
+        ans = max(ans,dp[i][x]);
+    }
+    cout << ans << '\n';
 }
