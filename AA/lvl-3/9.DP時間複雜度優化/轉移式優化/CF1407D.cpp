@@ -49,7 +49,25 @@ int main() {
     stack<int> st1,st2;
     st1.push(1);
     st2.push(1);
-    for(int i=1;i<=n;i++){
-        
+    for(int i=2;i<=n;i++){
+        dp[i] = dp[i-1]+1;
+        while(!st1.empty()&&a[st1.top()]<a[i]){
+            dp[i] = min(dp[i],dp[st1.top()]+1);
+            st1.pop();
+        }
+        while(!st2.empty()&&a[st2.top()]>a[i]){
+            dp[i] = min(dp[i],dp[st2.top()]+1);
+            st2.pop();
+        }
+
+        if(!st1.empty()) dp[i] = min(dp[i],dp[st1.top()]+1);
+        if(!st2.empty()) dp[i] = min(dp[i],dp[st2.top()]+1);
+
+        while(!st1.empty()&&a[st1.top()]==a[i]) st1.pop();
+        while(!st2.empty()&&a[st2.top()]==a[i]) st2.pop();
+
+        st1.push(i);
+        st2.push(i);
     }
+    cout << dp[n] << '\n';
 }
