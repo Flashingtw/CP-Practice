@@ -37,8 +37,27 @@ typedef vector<vpll> vvpll;
 
 const int INF = 1e9+9;
 const ll LINF = (1LL<<62);
+const int N = 2e5+5;
+const int mod = 1e9+7;
+
+vi adj[N];
+int a[N];
+ll dp[N][2];
+
+void dfs(int u){
+    for(int v:adj[u]){
+        dfs(v);
+
+    }
+}
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    
+    int n;
+    cin>>n;
+    REP(i,1,n){
+        int edg;
+        cin>>edg;
+        adj[i].push_back(edg);
+    }
 }
