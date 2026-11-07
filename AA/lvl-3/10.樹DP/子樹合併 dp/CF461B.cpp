@@ -44,10 +44,23 @@ vi adj[N];
 int a[N];
 ll dp[N][2];
 
-void dfs(int u){
+void dfs(int u,int p){
+    dp[u][0] = !a[u];
+    dp[u][1] = a[u];
     for(int v:adj[u]){
-        dfs(v);
-        
+        if(v==p) continue;
+        dfs(v,u);
+        ll t0=0,t1=0;
+        //不切
+        t0 = (t0 + dp[u][0]*dp[v][0])%mod;  
+        t1 = (t1 + dp[u][1]*dp[v][0])%mod;
+        t1 = (t1 + dp[u][0]*dp[v][1])%mod;
+        //切
+        t0 = (t0 + dp[u][0]*dp[v][1])%mod;
+        t1 = (t1 + dp[u][1]*dp[v][1])%mod;
+
+        dp[u][0] = t0;
+        dp[u][1] = t1;
     }
 }
 
@@ -59,5 +72,11 @@ int main() {
         int edg;
         cin>>edg;
         adj[i].push_back(edg);
+        adj[edg].push_back(i);
     }
+    REP(i,0,n){
+        cin>>a[i];
+    }
+    dfs(0,-1);
+    cout << dp[0][1] << '\n';
 }
