@@ -42,18 +42,26 @@ void solve() {
     int n;
     cin>>n;
     vi a(n+1);
-    REP(i,1,n+1) cin>>a[i];
-    vvl dp(n+1,vl(n+1,LINF));
-    dp[0][0]=0;
-    for(int i=1;i<=n;i++){
-        int sz = min(a[i],n);
-        for(int j=0;j<=sz;j++){
-            dp[i][j] = dp[i-1][j];
-        }
-        for(int j=sz+1;sz<=n;sz++){
-            dp[i][j];
+    vi cnt(n+1);
+    REP(i,1,n+1) {
+        cin>>a[i];
+        if(a[i]<=n) cnt[a[i]]++;
+    }
+    int mex=-1;
+    REP(i,0,n+1){
+        if(cnt[i]==0){
+            mex=i;
+            break;
         }
     }
+    vl dp(mex+1,LINF);
+    dp[mex]=0;
+    for(int i=mex;i>=0;i--){
+        for(int j=i+1;j<=mex;j++){
+            dp[i] = min(dp[i],dp[j]+(cnt[i]-1)*j+i);
+        }
+    }
+    cout << dp[0] << '\n';
 }
 
 int main() {
