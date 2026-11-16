@@ -1,34 +1,44 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-int cnt[15];
+int h;
+int n1[15][15];
 int a[30],b[30];
-int n;
+int cut[15];
+int mx=0;
 int ans;
-void rec(int idx){
-    if(idx>=n) {
-        ans++;
-        return;
-    }
-    for(int i=0;i<n;i++){
-        if(cnt[i]||a[i+idx]||b[i-idx+15]) continue;
-        cnt[i]++;
-        a[i+idx]++;
+void count(int idx){
+    if (idx>=h)
+    {
+        if(ans>=mx){mx=ans;}
+        return;}
+    for (int i = 0; i < h; i++)
+    {
+        if (cut[i]||a[idx+i]||b[i-idx+15]) {
+            continue;
+        }
+        a[idx+i]++;
         b[i-idx+15]++;
-        rec(idx+1);
-        cnt[i]--;
-        a[i+idx]--;
+        cut[i]++;
+        ans+=n1[idx][i];
+        count(idx+1);
+        a[idx+i]--;
+        ans-=n1[idx][i];
         b[i-idx+15]--;
+        cut[i]--;
     }
+    count(idx+1);
 }
-
-int main() {
-    ios::sync_with_stdio(0),cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        cin>>n;
-        ans=0;
-        rec(0);
-        cout << ans << '\n';
+int main(){
+    cin>>h;
+    for (int i = 0; i < h; i++)
+    {
+        for (int s1=0;s1<h; s1++)
+        {
+            cin>>n1[i][s1];
+        }
+        
     }
+    ans=0;
+    count(0);
+    cout<<mx;
 }
