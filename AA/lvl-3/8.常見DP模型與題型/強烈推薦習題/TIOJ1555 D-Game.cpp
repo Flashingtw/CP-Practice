@@ -47,7 +47,6 @@ int main() {
     
     ll ans=0;
     int mx=0;
-
     int cur=0;
     for(int i=1;i<=n;i++){
         int las = cur^1;
