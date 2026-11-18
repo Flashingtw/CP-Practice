@@ -41,25 +41,29 @@ ll a[3005];
 ll dp[3005][3005][2];
 int vis[3005][3005][2];
 int n;
+ll x;
 ll f(int l,int r,int t){
-    if(l==r) return n*a[l];
+    if(l==r) return dp[l][r][t] = n*abs(a[l]-x);
     if(vis[l][r][t]) return dp[l][r][t];
     vis[l][r][t] = 1;
-    int k = r-l+1;
+    int k = n-(r-l);
     if(!t){
-        return dp[l][r][t] = min(dp[l][r][0],dp[l+1][r][0]+k*(a[l+1]-a[l]));
+        return dp[l][r][t] = min(f(l+1,r,1)+k*(a[r]-a[l]),f(l+1,r,0)+k*(a[l+1]-a[l]));
     }
     else{
-        return dp[l][r][t] = min(dp[l][r][1],dp[l][r-1][1]+k*(a[r]-a[r-1]));
+        return dp[l][r][t] = min(f(l,r-1,0)+k*(a[r]-a[l]),f(l,r-1,1)+k*(a[r]-a[r-1]));
     }
 }
 
 int main() {
     ios::sync_with_stdio(0),cin.tie(0);
-    cin>>n;
+    cin>>n>>x;
     REP(i,1,n+1) cin>>a[i];
     sort(a+1,a+n+1);
     f(1,n,0);
     f(1,n,1);
     cout << min(dp[1][n][0],dp[1][n][1]) << '\n';
 }
+/*
+sort後也是只需要關注附近兩個的轉移即可, 可用區間dp實作 非常優質
+*/
